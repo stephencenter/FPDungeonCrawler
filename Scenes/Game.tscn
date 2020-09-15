@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Terrain/MeshLibrary.tres" type="MeshLibrary" id=2]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.294118, 0.435294, 1, 1 )
+
+[sub_resource type="BoxShape" id=3]
+
+[node name="World" type="Spatial"]
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+script = ExtResource( 1 )
+
+[node name="Terrain" type="Spatial" parent="."]
+
+[node name="GridMap" type="GridMap" parent="Terrain"]
+mesh_library = ExtResource( 2 )
+data = {
+"cells": PoolIntArray( 0, 0, 0, 5, 0, 0, 10, 0, 0, 65526, 0, 0, 65531, 0, 0, 131084, 0, 65536, 196596, 0, 196608, 0, 5, 0, 5, 5, 0, 10, 5, 0, 65526, 5, 0, 65531, 5, 0, 131084, 5, 65536, 196596, 5, 196608, 0, 10, 0, 5, 10, 0, 10, 10, 0, 65526, 10, 0, 65531, 10, 0, 131084, 10, 65536, 196596, 10, 196608, 131072, 12, 917504, 131077, 12, 917504, 131082, 12, 917504, 196598, 12, 917504, 196603, 12, 917504, 131072, 65524, 393216, 131077, 65524, 393216, 131082, 65524, 393216, 196598, 65524, 393216, 196603, 65524, 393216, -2097224, 65525, 917504, -589855, 65525, 917504, -524316, 65525, 917504, -262167, 65525, 917504, -196628, 65525, 917504, -131091, 65525, 917504, -131090, 65525, 917504, -131089, 65525, 917504, 0, 65526, 0, 5, 65526, 0, 10, 65526, 0, 65526, 65526, 0, 65531, 65526, 0, 131084, 65526, 65536, 196596, 65526, 196608, 0, 65531, 0, 5, 65531, 0, 10, 65531, 0, 65526, 65531, 0, 65531, 65531, 0, 131084, 65531, 65536, 196596, 65531, 196608 )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( -12, 0, -11 )
+}
+
+[node name="Objects" type="Spatial" parent="."]
+
+[node name="Cube" type="KinematicBody" parent="Objects"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.873, 2, -13.353 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MeshInstance" type="MeshInstance" parent="Objects/Cube"]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Cube"]
+shape = SubResource( 3 )
