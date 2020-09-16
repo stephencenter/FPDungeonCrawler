@@ -2,11 +2,12 @@ extends KinematicBody
 
 const PLAYER_GRAVITY : float = -100.0
 const PLAYER_MAX_SPEED : float = 15.0
-const PLAYER_TURN_SPEED : float = 60.0
+const PLAYER_TURN_SPEED : float = 100.0
 const PLAYER_ACCELERATION : float = 10.0
 const PLAYER_MAX_SLOPE : float = 40.0
 const PLAYER_MAX_LOOKANGLE : float = 50.0
 const PLAYER_DEF_LOOKANGLE : float = -10.0
+const PLAYER_JUMP_FORCE : float = 30.0
 
 var current_velocity : Vector3
 
@@ -30,12 +31,15 @@ func _physics_process(delta):
 func process_input(_delta) -> Array:
     var walk_vector : Vector3
     var turn_vector : Vector2
-    
+        
     if are_walk_keys_pressed():
         walk_vector = action_walk_around()
-        
+    
     if are_turn_keys_pressed():
         turn_vector = action_turn_camera()
+        
+    if Input.is_action_just_pressed("jump"):
+        action_jump()
         
     return [walk_vector, turn_vector]
     
@@ -85,27 +89,16 @@ func are_walk_keys_pressed() -> bool:
            Input.is_action_pressed("walk_backward") or \
            Input.is_action_pressed("strafe_left") or \
            Input.is_action_pressed("strafe_right")
-    
-func are_turn_keys_pressed() -> bool:
+
+func are_turn_keys_pressed() -> bool:            
     return Input.is_action_pressed("turn_left") or \
            Input.is_action_pressed("turn_right") or \
            Input.is_action_pressed("glance_up") or \
            Input.is_action_pressed("glance_down")
-        
+    
 func is_grounded() -> bool:
     var ray = $Feet/RayCast
     return ray.is_colliding() or is_on_floor()
-
-func get_object_at_cursor(max_distance : float, ignored : Array = []) -> KinematicBody:
-    var state = get_world().direct_space_state
-    var ray_start = camera.project_ray_origin(cursor.cursor_position)
-    var ray_end = ray_start + camera.project_ray_normal(cursor.cursor_position)*max_distance
-    var ray_result = state.intersect_ray(ray_start, ray_end, [self] + ignored)
-    
-    if !ray_result.empty() and ray_result["collider"] is KinematicBody:
-        return ray_result["collider"]
-        
-    return null
     
 func action_walk_around() -> Vector3:
     var walk_vector = Vector3()
@@ -129,9 +122,9 @@ func action_walk_around() -> Vector3:
     walk_vector += cam_xform.basis.x * input_walk_vector.x
     
     return walk_vector
-    
+       
 func action_turn_camera() -> Vector2:
-    var turn_vector : Vector2
+    var turn_vector : Vector2 = Vector2(0, 0)
     
     if Input.is_action_pressed("turn_left"):
         turn_vector.y -= Input.get_action_strength("turn_left")*PLAYER_TURN_SPEED
@@ -140,6 +133,10 @@ func action_turn_camera() -> Vector2:
         turn_vector.y += Input.get_action_strength("turn_right")*PLAYER_TURN_SPEED
         
     if Input.is_action_pressed("glance_down"):
-        turn_vector.x -= Input.get_action_strength("glance_down")*PLAYER_TURN_SPEED*2 
+        turn_vector.x -= Input.get_action_strength("glance_down")*PLAYER_TURN_SPEED 
     
     return turn_vector 
+
+func action_jump():
+    if is_grounded():
+        current_velocity.y = PLAYER_JUMP_FORCE    

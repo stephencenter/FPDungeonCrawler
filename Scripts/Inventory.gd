@@ -6,23 +6,25 @@ const INVENTORY_NUM_COLUMNS = 27
 var inventory_slots : Array
 var cursor : Node2D
 var point_helper : Sprite
-var player : KinematicBody
-
 var current_slot_index = null
 
 func _ready():
-    inventory_slots = $ItemSlots.get_children()
     cursor = get_parent().get_node("Cursor")
     point_helper = $PointHelper
-    player = get_tree().get_root().get_node("Player")
+    
+    for slot in $ItemSlots.get_children():
+        inventory_slots.append([slot, null])
+        
+    if inventory_slots.size() != INVENTORY_NUM_ROWS*INVENTORY_NUM_COLUMNS:
+        push_error("NUM_ROWS and NUM_COLUMNS do not match inventory size!")
 
-func _process(delta):
+func _process(_delta):
     if are_ui_directions_pressed():
         action_cycle_item_slots()
         
     if cursor.are_cursor_keys_pressed():
         current_slot_index = null
-        
+    
     move_cursor_to_itemslot()
     
 func are_ui_directions_pressed():
@@ -37,12 +39,12 @@ func are_cursor_keys_pressed() -> bool:
            Input.is_action_pressed("move_cursor_left") or \
            Input.is_action_pressed("move_cursor_right")
 
-func get_current_slot() -> Area2D:
+func get_current_slot() -> Array:
     return inventory_slots[current_slot_index]
     
 func move_cursor_to_itemslot():
     if current_slot_index != null:
-        cursor.cursor_position = get_current_slot().global_position
+        cursor.cursor_position = get_current_slot()[0].global_position
     
 func get_hovered_itemslot() -> Area2D:
     for slot in inventory_slots:
@@ -76,8 +78,6 @@ func action_cycle_item_slots():
             
     if Input.is_action_just_pressed("ui_down"):
         var x = INVENTORY_NUM_ROWS - 1
-        print("c_index ", current_slot_index)
-        print("x ", INVENTORY_NUM_COLUMNS*x)
         if current_slot_index < INVENTORY_NUM_COLUMNS*x:
             current_slot_index += INVENTORY_NUM_COLUMNS
         else:
