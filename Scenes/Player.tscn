@@ -3,7 +3,6 @@
 [ext_resource path="res://Textures/crosshair.png" type="Texture" id=1]
 [ext_resource path="res://Textures/inventory.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Inventory.gd" type="Script" id=3]
-[ext_resource path="res://Textures/point_helper.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Cursor.gd" type="Script" id=5]
 [ext_resource path="res://Textures/compass.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/Compass.gd" type="Script" id=7]
@@ -14,6 +13,9 @@ height = 4.0
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 1.2, 0.2, 1.2 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 572, 79 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 15, 15 )
@@ -43,7 +45,6 @@ __meta__ = {
 }
 
 [node name="Camera" type="Camera" parent="RotationHelper"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 keep_aspect = 0
 current = true
 fov = 100.0
@@ -51,24 +52,16 @@ far = 180.0
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="Inventory" type="Control" parent="HUD"]
-margin_left = 960.0
-margin_top = 972.0
-margin_right = 1000.0
-margin_bottom = 1012.0
+[node name="Inventory" type="Area2D" parent="HUD"]
+position = Vector2( 960, 972 )
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Sprite" type="Sprite" parent="HUD/Inventory"]
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 2 )
 
-[node name="PointHelper" type="Sprite" parent="HUD/Inventory"]
-visible = false
-scale = Vector2( 0.02, 0.02 )
-texture = ExtResource( 4 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory"]
+shape = SubResource( 4 )
 
 [node name="ItemSlots" type="Node" parent="HUD/Inventory"]
 
@@ -81,6 +74,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot0"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot0"]
+
 [node name="ItemSlot1" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 452.351, 923.577 )
 __meta__ = {
@@ -89,6 +84,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot1"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot1"]
 
 [node name="ItemSlot2" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 494.163, 924.56 )
@@ -99,6 +96,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot2"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot2"]
+
 [node name="ItemSlot3" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 538.015, 924.163 )
 __meta__ = {
@@ -107,6 +106,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot3"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot3"]
 
 [node name="ItemSlot4" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 579.089, 924.163 )
@@ -117,6 +118,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot4"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot4"]
+
 [node name="ItemSlot5" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 620.758, 924.758 )
 __meta__ = {
@@ -125,6 +128,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot5"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot5"]
 
 [node name="ItemSlot6" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 662.336, 924.009 )
@@ -135,6 +140,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot6"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot6"]
+
 [node name="ItemSlot7" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 703.352, 923.635 )
 __meta__ = {
@@ -143,6 +150,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot7"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot7"]
 
 [node name="ItemSlot8" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 745.492, 923.26 )
@@ -153,6 +162,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot8"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot8"]
+
 [node name="ItemSlot9" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 789.505, 923.635 )
 __meta__ = {
@@ -161,6 +172,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot9"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot9"]
 
 [node name="ItemSlot10" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 830.896, 923.635 )
@@ -171,6 +184,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot10"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot10"]
+
 [node name="ItemSlot11" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 874.347, 923.26 )
 __meta__ = {
@@ -179,6 +194,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot11"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot11"]
 
 [node name="ItemSlot12" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 917.61, 923.635 )
@@ -189,6 +206,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot12"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot12"]
+
 [node name="ItemSlot13" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 958.439, 923.26 )
 __meta__ = {
@@ -197,6 +216,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot13"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot13"]
 
 [node name="ItemSlot14" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1000.77, 924.197 )
@@ -207,6 +228,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot14"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot14"]
+
 [node name="ItemSlot15" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1044.4, 924.571 )
 __meta__ = {
@@ -215,6 +238,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot15"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot15"]
 
 [node name="ItemSlot16" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1085.61, 924.384 )
@@ -225,6 +250,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot16"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot16"]
+
 [node name="ItemSlot17" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1127.56, 925.32 )
 __meta__ = {
@@ -233,6 +260,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot17"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot17"]
 
 [node name="ItemSlot18" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1169.51, 924.758 )
@@ -243,6 +272,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot18"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot18"]
+
 [node name="ItemSlot19" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1210.34, 924.946 )
 __meta__ = {
@@ -251,6 +282,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot19"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot19"]
 
 [node name="ItemSlot20" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1252.67, 925.133 )
@@ -261,6 +294,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot20"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot20"]
+
 [node name="ItemSlot21" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1296.3, 925.727 )
 __meta__ = {
@@ -269,6 +304,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot21"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot21"]
 
 [node name="ItemSlot22" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1337.66, 925.55 )
@@ -279,6 +316,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot22"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot22"]
+
 [node name="ItemSlot23" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1379.91, 925.019 )
 __meta__ = {
@@ -287,6 +326,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot23"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot23"]
 
 [node name="ItemSlot24" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1426.02, 925.91 )
@@ -297,6 +338,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot24"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot24"]
+
 [node name="ItemSlot25" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1467.22, 925.465 )
 __meta__ = {
@@ -305,6 +348,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot25"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot25"]
 
 [node name="ItemSlot26" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1509.76, 926.356 )
@@ -315,6 +360,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot26"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot26"]
+
 [node name="ItemSlot27" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 410.93, 971.432 )
 __meta__ = {
@@ -323,6 +370,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot27"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot27"]
 
 [node name="ItemSlot28" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 452.245, 970.987 )
@@ -333,6 +382,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot28"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot28"]
+
 [node name="ItemSlot29" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 494.563, 971.878 )
 __meta__ = {
@@ -341,6 +392,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot29"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot29"]
 
 [node name="ItemSlot30" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 537.994, 971.989 )
@@ -351,6 +404,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot30"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot30"]
+
 [node name="ItemSlot31" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 578.975, 972.101 )
 __meta__ = {
@@ -359,6 +414,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot31"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot31"]
 
 [node name="ItemSlot32" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 620.959, 972.101 )
@@ -369,6 +426,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot32"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot32"]
+
 [node name="ItemSlot33" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 662.831, 971.432 )
 __meta__ = {
@@ -377,6 +436,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot33"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot33"]
 
 [node name="ItemSlot34" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 703.825, 971.537 )
@@ -387,6 +448,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot34"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot34"]
+
 [node name="ItemSlot35" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 746.08, 970.907 )
 __meta__ = {
@@ -395,6 +458,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot35"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot35"]
 
 [node name="ItemSlot36" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 789.911, 971.537 )
@@ -405,6 +470,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot36"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot36"]
+
 [node name="ItemSlot37" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 831.22, 971.222 )
 __meta__ = {
@@ -413,6 +480,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot37"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot37"]
 
 [node name="ItemSlot38" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 874.737, 971.432 )
@@ -423,6 +492,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot38"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot38"]
+
 [node name="ItemSlot39" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 918.043, 971.117 )
 __meta__ = {
@@ -431,6 +502,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot39"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot39"]
 
 [node name="ItemSlot40" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 959.142, 971.012 )
@@ -441,6 +514,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot40"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot40"]
+
 [node name="ItemSlot41" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1001.19, 971.958 )
 __meta__ = {
@@ -449,6 +524,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot41"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot41"]
 
 [node name="ItemSlot42" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1044.81, 972.273 )
@@ -459,6 +536,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot42"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot42"]
+
 [node name="ItemSlot43" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1086.01, 972.063 )
 __meta__ = {
@@ -467,6 +546,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot43"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot43"]
 
 [node name="ItemSlot44" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1127.95, 972.904 )
@@ -477,6 +558,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot44"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot44"]
+
 [node name="ItemSlot45" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1169.37, 972.378 )
 __meta__ = {
@@ -485,6 +568,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot45"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot45"]
 
 [node name="ItemSlot46" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1210.57, 972.063 )
@@ -495,6 +580,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot46"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot46"]
+
 [node name="ItemSlot47" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1252.93, 972.694 )
 __meta__ = {
@@ -503,6 +590,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot47"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot47"]
 
 [node name="ItemSlot48" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1297.08, 973.43 )
@@ -513,6 +602,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot48"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot48"]
+
 [node name="ItemSlot49" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1337.86, 972.589 )
 __meta__ = {
@@ -521,6 +612,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot49"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot49"]
 
 [node name="ItemSlot50" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1380.01, 972.589 )
@@ -531,6 +624,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot50"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot50"]
+
 [node name="ItemSlot51" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1426.47, 973.219 )
 __meta__ = {
@@ -539,6 +634,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot51"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot51"]
 
 [node name="ItemSlot52" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1467.99, 973.43 )
@@ -549,6 +646,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot52"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot52"]
+
 [node name="ItemSlot53" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1509.72, 973.955 )
 __meta__ = {
@@ -557,6 +656,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot53"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot53"]
 
 [node name="ItemSlot54" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 411.165, 1016.26 )
@@ -567,6 +668,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot54"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot54"]
+
 [node name="ItemSlot55" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 452.474, 1016.16 )
 __meta__ = {
@@ -575,6 +678,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot55"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot55"]
 
 [node name="ItemSlot56" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 494.308, 1016.79 )
@@ -585,6 +690,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot56"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot56"]
+
 [node name="ItemSlot57" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 538.35, 1017.21 )
 __meta__ = {
@@ -593,6 +700,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot57"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot57"]
 
 [node name="ItemSlot58" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 579.239, 1017 )
@@ -603,6 +712,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot58"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot58"]
+
 [node name="ItemSlot59" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 620.548, 1017 )
 __meta__ = {
@@ -611,6 +722,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot59"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot59"]
 
 [node name="ItemSlot60" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 662.908, 1016.68 )
@@ -621,6 +734,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot60"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot60"]
+
 [node name="ItemSlot61" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 704.181, 1016.19 )
 __meta__ = {
@@ -629,6 +744,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot61"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot61"]
 
 [node name="ItemSlot62" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 745.85, 1015.89 )
@@ -639,6 +756,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot62"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot62"]
+
 [node name="ItemSlot63" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 789.503, 1016.39 )
 __meta__ = {
@@ -647,6 +766,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot63"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot63"]
 
 [node name="ItemSlot64" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 830.379, 1015.79 )
@@ -657,6 +778,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot64"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot64"]
+
 [node name="ItemSlot65" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 874.529, 1016.09 )
 __meta__ = {
@@ -665,6 +788,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot65"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot65"]
 
 [node name="ItemSlot66" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 918.182, 1016.39 )
@@ -675,6 +800,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot66"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot66"]
+
 [node name="ItemSlot67" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 959.157, 1016.39 )
 __meta__ = {
@@ -683,6 +810,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot67"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot67"]
 
 [node name="ItemSlot68" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1000.83, 1017.18 )
@@ -693,6 +822,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot68"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot68"]
+
 [node name="ItemSlot69" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1044.88, 1017.18 )
 __meta__ = {
@@ -701,6 +832,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot69"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot69"]
 
 [node name="ItemSlot70" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1085.95, 1017.18 )
@@ -711,6 +844,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot70"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot70"]
+
 [node name="ItemSlot71" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1127.82, 1018.17 )
 __meta__ = {
@@ -719,6 +854,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot71"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot71"]
 
 [node name="ItemSlot72" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1169.69, 1016.98 )
@@ -729,6 +866,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot72"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot72"]
+
 [node name="ItemSlot73" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1210.66, 1017.48 )
 __meta__ = {
@@ -737,6 +876,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot73"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot73"]
 
 [node name="ItemSlot74" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1253.02, 1018.27 )
@@ -747,6 +888,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot74"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot74"]
+
 [node name="ItemSlot75" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1296.68, 1018.57 )
 __meta__ = {
@@ -755,6 +898,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot75"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot75"]
 
 [node name="ItemSlot76" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1337.85, 1018.47 )
@@ -765,6 +910,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot76"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot76"]
+
 [node name="ItemSlot77" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1380.31, 1017.78 )
 __meta__ = {
@@ -773,6 +920,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot77"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot77"]
 
 [node name="ItemSlot78" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1426.85, 1018.17 )
@@ -783,6 +932,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot78"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot78"]
+
 [node name="ItemSlot79" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1467.62, 1017.97 )
 __meta__ = {
@@ -792,6 +943,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot79"]
 shape = SubResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot79"]
+
 [node name="ItemSlot80" type="Area2D" parent="HUD/Inventory/ItemSlots"]
 position = Vector2( 1509.89, 1018.97 )
 __meta__ = {
@@ -800,6 +953,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/Inventory/ItemSlots/ItemSlot80"]
 shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="HUD/Inventory/ItemSlots/ItemSlot80"]
 
 [node name="Cursor" type="Node2D" parent="HUD"]
 script = ExtResource( 5 )

@@ -1,16 +1,20 @@
-extends Control
+extends Area2D
 
+# Constants
 const INVENTORY_NUM_ROWS = 3
 const INVENTORY_NUM_COLUMNS = 27
 
+# Variables
 var inventory_slots : Array
-var cursor : Node2D
-var point_helper : Sprite
 var current_slot_index = null
+
+# Nodes
+var cursor : Node2D
+var player : KinematicBody
 
 func _ready():
     cursor = get_parent().get_node("Cursor")
-    point_helper = $PointHelper
+    player = get_parent().get_parent()
     
     for slot in $ItemSlots.get_children():
         inventory_slots.append([slot, null])
@@ -22,7 +26,7 @@ func _process(_delta):
     if are_ui_directions_pressed():
         action_cycle_item_slots()
         
-    if cursor.are_cursor_keys_pressed():
+    if player.are_cursor_keys_pressed():
         current_slot_index = null
     
     move_cursor_to_itemslot()
@@ -32,8 +36,6 @@ func are_ui_directions_pressed():
            Input.is_action_just_pressed("ui_down") or \
            Input.is_action_just_pressed("ui_left") or \
            Input.is_action_just_pressed("ui_right")
-
-func are_cursor_keys_pressed() -> bool:
     return Input.is_action_pressed("move_cursor_up") or \
            Input.is_action_pressed("move_cursor_down") or \
            Input.is_action_pressed("move_cursor_left") or \
@@ -44,26 +46,22 @@ func get_current_slot() -> Array:
     
 func move_cursor_to_itemslot():
     if current_slot_index != null:
-        cursor.cursor_position = get_current_slot()[0].global_position
+        cursor.set_cursor_position(get_current_slot()[0].global_position)
     
-func get_hovered_itemslot() -> Area2D:
+func get_hovered_itemslot():
+    # Returns the index of the hovered itemslot,
+    # or null if nothing is found
+    var slot_counter = 0
     for slot in inventory_slots:
-        var size = slot.get_node("CollisionShape2D").shape.extents
-        var pos = slot.global_position
-        
-        var min_x = pos.x - size.x
-        var max_x = pos.x + size.x
-        var min_y = pos.y - size.y
-        var max_y = pos.y + size.y
-        
-        var cursor_pos = cursor.global_position
-        
-        if cursor_pos.y > min_y and cursor_pos.y < max_y:
-            if cursor_pos.x > min_x and cursor_pos.x < max_x:
-                return slot
+        if cursor.is_cursor_inside_area(slot[0]):
+            return slot_counter
+        slot_counter += 1        
         
     return null
 
+func is_hovering_inventory():
+    return cursor.is_cursor_inside_area(self)
+    
 func action_cycle_item_slots():
     if current_slot_index == null:
         current_slot_index = 0
@@ -95,3 +93,15 @@ func action_cycle_item_slots():
         else:
             current_slot_index -= INVENTORY_NUM_COLUMNS - 1
         
+func put_item_in_slot(index : int, item : RigidBody):
+    var slot = inventory_slots[index]
+    slot[1] = item
+    slot[0].get_node("Sprite").texture = item.get_node("Sprite3D").texture
+    
+func get_item_in_slot(index : int) -> RigidBody:
+    return inventory_slots[index][1]
+    
+func set_slot_empty(index : int):
+    var slot = inventory_slots[index]
+    slot[1] = null
+    slot[0].get_node("Sprite").texture = null

@@ -1,11 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Terrain/MeshLibrary.tres" type="MeshLibrary" id=2]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Textures/femur.png" type="Texture" id=4]
+[ext_resource path="res://Textures/a_shield_round.png" type="Texture" id=5]
+[ext_resource path="res://Textures/sword_normal.png" type="Texture" id=6]
 
-[sub_resource type="VisualScript" id=4]
+[sub_resource type="VisualScript" id=1]
 data = {
 "base_type": "SpatialMaterial",
 "functions": [  ],
@@ -23,7 +25,7 @@ params_billboard_mode = 1
 params_billboard_keep_scale = true
 params_use_alpha_scissor = true
 params_alpha_scissor_threshold = 0.02
-script = SubResource( 4 )
+script = SubResource( 1 )
 
 [sub_resource type="BoxShape" id=3]
 
@@ -62,4 +64,36 @@ material_override = SubResource( 2 )
 texture = ExtResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Objects/Bones"]
+shape = SubResource( 3 )
+
+[node name="Sword" type="RigidBody" parent="Objects"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.1306, 2, -11.7333 )
+collision_layer = 2
+collision_mask = 2
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+
+[node name="Sprite3D" type="Sprite3D" parent="Objects/Sword"]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0 )
+material_override = SubResource( 2 )
+texture = ExtResource( 6 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Sword"]
+shape = SubResource( 3 )
+
+[node name="Shield" type="RigidBody" parent="Objects"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.098, 2, -1.39262 )
+collision_layer = 2
+collision_mask = 2
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+
+[node name="Sprite3D" type="Sprite3D" parent="Objects/Shield"]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0 )
+material_override = SubResource( 2 )
+texture = ExtResource( 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Shield"]
 shape = SubResource( 3 )
